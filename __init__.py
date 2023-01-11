@@ -1,11 +1,9 @@
 from .main import (
-    column_names,
     molecules_names,
-    atomic_mass,
-    data,
-    number_densities,
-    plot_vs_pressure,
+    molar_mass,
+    column_names,
+    read_exoplanetA,
+    get_num_densities,
     calc_mass_density,
-    mass_densities
-
+    plot_vs_pressure
 )
