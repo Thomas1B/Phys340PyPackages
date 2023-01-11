@@ -3,7 +3,7 @@
 <br>
 
 How to import functions and variables:
-````py
+```py
 from Phys340PyPackages import (
     molecules_names,
     molar_mass,
