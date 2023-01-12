@@ -25,8 +25,7 @@ molar_mass = {
 }
 
 # *************************************************************************************
-# Functions to read in data and get other things.
-
+# Functions to read in data
 
 def read_exoplanetA():
     '''
@@ -38,6 +37,8 @@ def read_exoplanetA():
     data[molecules_names] *= 1e22
     return data
 
+# *************************************************************************************
+# Functions for getting things from data and calculating
 
 def get_num_densities(data=None, molecules_names=molecules_names):
     '''
@@ -47,7 +48,6 @@ def get_num_densities(data=None, molecules_names=molecules_names):
         data = read_exoplanetA()
 
     return data[molecules_names]
-
 
 def calc_mass_density(num_density, molar_mass):
     '''
