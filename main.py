@@ -40,7 +40,7 @@ def read_exoplanetA():
     # getting full number, see data file for explaination.
     data[molecules_names] *= 1e22
     return data
-
+data = read_exoplanetA()
 
 # *************************************************************************************
 # Functions for calculating
@@ -68,17 +68,25 @@ def get_mass_density():
                       for name in molecules_names], axis=1)
 
 
-def get_specific_humidity(data=None):
+def get_specific_humidity():
     '''
     Function to calculate the specific humidity.
     Returns pd Series.
     '''
-    if not data:
-        data = read_exoplanetA()
-    water_vapour_density = get_mass_density(data.H2O, molar_mass['H2O'])
+    water_vapour_density = get_mass_density().H2O
     return water_vapour_density/data.air_density
 
-
+def get_mass_fraction():
+    '''
+    Function to calculate the mass fraction.
+    Returns a DataFrame.
+    '''
+    mass_density = get_mass_density()
+    mass_fraction = pd.concat([mass_density[name]/data.air_density
+                              for name in mass_density], axis=1)
+    mass_fraction.columns = mass_density.columns
+    return mass_fraction
+    
 # *************************************************************************************
 
 
