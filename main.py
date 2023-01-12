@@ -1,3 +1,6 @@
+
+# This module is specific to one dataset "exoplanet_2023A_data.txt"
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -27,6 +30,7 @@ molar_mass = {
 # *************************************************************************************
 # Functions to read in data
 
+
 def read_exoplanetA():
     '''
     Function to read in data from exoplanetA.
@@ -37,33 +41,52 @@ def read_exoplanetA():
     data[molecules_names] *= 1e22
     return data
 
+
 # *************************************************************************************
-# Functions for getting things from data and calculating
+# Functions for calculating
 
 def get_num_densities(data=None, molecules_names=molecules_names):
     '''
-    Function to get the number densities of compounds in some data.
+    Function to get the number density of compounds in some data.
+    Returns DataFrame.
     '''
     if not data:
         data = read_exoplanetA()
 
     return data[molecules_names]
 
-def calc_mass_density(num_density, molar_mass):
+
+def get_mass_density():
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
+    Returns DataFrame.
     '''
-    return (num_density*molar_mass)/constants.Avogadro
+    def mass_density(num_density, molar_mass): 
+        return (num_density*molar_mass)/constants.Avogadro
+
+    return pd.concat([mass_density(get_num_densities()[name], molar_mass[name])
+                      for name in molecules_names], axis=1)
+
+
+def get_specific_humidity(data=None):
+    '''
+    Function to calculate the specific humidity.
+    Returns pd Series.
+    '''
+    if not data:
+        data = read_exoplanetA()
+    water_vapour_density = get_mass_density(data.H2O, molar_mass['H2O'])
+    return water_vapour_density/data.air_density
 
 
 # *************************************************************************************
 
 
-def plot_vs_pressure(x, y, title, xlabel, *args):
+def plot_vs_pressure(x, title, xlabel, *args):
     '''
     Function to make plots againist pressure
     '''
-    plt.plot(x, y)
+    plt.plot(x, read_exoplanetA().pressure, args)
     plt.gca().invert_yaxis()
 
     plt.title(title, fontsize=14)

@@ -4,6 +4,7 @@ from .main import (
     column_names,
     read_exoplanetA,
     get_num_densities,
-    calc_mass_density,
+    get_mass_density,
+    get_specific_humidity,
     plot_vs_pressure
 )
