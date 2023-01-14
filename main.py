@@ -19,9 +19,10 @@ column_names = ['pressure', 'temperature', 'air_density',
                 'zonal_wind', 'merid_wind'] + molecules_names
 molar_mass = {
     # molar mass, in  Kg/mol
+    'dry_air' : 28.9647e-3,
     "N2": 28.013e-3,
     'CO': 28.010e-3,
-    'O2': 15.999e-3,
+    'O2': 32e-3,
     'H2': 2.016e-3,
     'Ar': 39.948e-3,
     'H2O': 18.015e-3
@@ -29,7 +30,6 @@ molar_mass = {
 
 # *************************************************************************************
 # Functions to read in data
-
 
 def read_exoplanetA():
     '''
@@ -90,11 +90,11 @@ def get_mass_fraction():
 # *************************************************************************************
 
 
-def plot_vs_pressure(x, title, xlabel, *args):
+def plot_vs_pressure(x, title, xlabel, label=None):
     '''
     Function to make plots againist pressure
     '''
-    plt.plot(x, read_exoplanetA().pressure, args)
+    plt.plot(x, read_exoplanetA().pressure, label=label)
     plt.gca().invert_yaxis()
 
     plt.title(title, fontsize=14)
