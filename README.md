@@ -4,11 +4,6 @@
 
 How to import functions and variables:
 ```py
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from scipy import constants
-
 # Custom Packages
 from Phys340PyPackages import (
     molecules_names,
