@@ -11,8 +11,5 @@ from .main import (
     get_mass_fraction
 )
 from .main import (
-    plot_vs_pressure,
-    plot_vs_pressure_loglog,
-    plot_vs_pressure_semilogx,
-    plot_vs_pressure_semilogy
+    plot_vs_pressure
 )
