@@ -56,15 +56,25 @@ def get_num_densities(data=None, molecules_names=molecules_names):
     return data[molecules_names]
 
 
-def get_mass_density():
+def get_mass_density(name=None):
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
-    Returns DataFrame.
+
+    Parameter:
+        name (str): Optional, name of compound.
+
+    Returns:
+        if name parameter is given -> Series.
+        otherwise -> DataFrame.
     '''
+
     def mass_density(num_density, molar_mass): 
         return (num_density*molar_mass)/constants.Avogadro
 
-    return pd.concat([mass_density(get_num_densities()[name], molar_mass[name])
+    if name:
+        return pd.Series(mass_density(get_num_densities()[name], molar_mass[name]), name=name)
+    else:
+        return pd.concat([mass_density(get_num_densities()[name], molar_mass[name])
                       for name in molecules_names], axis=1)
 
 
@@ -73,19 +83,28 @@ def get_specific_humidity():
     Function to calculate the specific humidity.
     Returns pd Series.
     '''
-    water_vapour_density = get_mass_density().H2O
+    water_vapour_density = get_mass_density('H2O')
     return water_vapour_density/data.air_density
 
-def get_mass_fraction():
+
+def get_mass_fraction(name=None):
     '''
-    Function to calculate the mass fraction.
-    Returns a DataFrame.
+    Parameter:
+        name (str): Optional, name of compound.
+
+    Returns:
+        if name parameter is given -> Series.
+        otherwise -> DataFrame.
     '''
-    mass_density = get_mass_density()
-    mass_fraction = pd.concat([mass_density[name]/data.air_density
-                              for name in mass_density], axis=1)
-    mass_fraction.columns = mass_density.columns
-    return mass_fraction
+
+    if name:
+        return pd.Series(get_mass_density(name)/data.air_density, name=name)
+    else:
+        mass_density = get_mass_density()
+        mass_fraction = pd.concat([mass_density[name]/data.air_density
+                                for name in mass_density], axis=1)
+        mass_fraction.columns = mass_density.columns
+        return mass_fraction
     
 # *************************************************************************************
 
