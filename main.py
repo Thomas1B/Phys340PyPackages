@@ -109,13 +109,53 @@ def get_mass_fraction(name=None):
 # *************************************************************************************
 
 
-def plot_vs_pressure(x, title, xlabel, label=None):
+def plot_vs_pressure(x, title=None, xlabel=None, label=None):
     '''
     Function to make plots againist pressure
     '''
-    plt.plot(x, read_exoplanetA().pressure, label=label)
+    plt.plot(x, read_exoplanetA().pressure/100, label=label)
     plt.gca().invert_yaxis()
 
     plt.title(title, fontsize=14)
-    plt.ylabel("Pressure $[Pa]$")
+    plt.ylabel("Pressure $[hPa]$")
     plt.xlabel(xlabel)
+    plt.grid()
+
+
+def plot_vs_pressure_semilogx(x, title=None, xlabel=None, label=None):
+    '''
+    Function to make semilog x plots againist pressure
+    '''
+    plt.semilogx(x, read_exoplanetA().pressure/100, label=label)
+    plt.gca().invert_yaxis()
+
+    plt.title(title, fontsize=14)
+    plt.ylabel("Pressure $[hPa]$")
+    plt.xlabel(xlabel)
+    plt.grid()
+
+
+def plot_vs_pressure_semilogy(x, title=None, xlabel=None, label=None):
+    '''
+    Function to make semilog y plots againist pressure
+    '''
+    plt.semilogy(x, read_exoplanetA().pressure/100, label=label)
+    plt.gca().invert_yaxis()
+
+    plt.title(title, fontsize=14)
+    plt.ylabel("Pressure $[hPa]$")
+    plt.xlabel(xlabel)
+    plt.grid()
+
+
+def plot_vs_pressure_loglog(x, title=None, xlabel=None, label=None):
+    '''
+    Function to make loglog plots againist pressure
+    '''
+    plt.loglog(x, read_exoplanetA().pressure/100, label=label)
+    plt.gca().invert_yaxis()
+
+    plt.title(title, fontsize=14)
+    plt.ylabel("Pressure $[hPa]$")
+    plt.xlabel(xlabel)
+    plt.grid()
