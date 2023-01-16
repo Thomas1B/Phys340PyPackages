@@ -84,7 +84,7 @@ def get_specific_humidity():
     Returns pd Series.
     '''
     water_vapour_density = get_mass_density('H2O')
-    return water_vapour_density/data.air_density
+    return pd.Series(water_vapour_density/data.air_density, name="specific_humidity")
 
 
 def get_mass_fraction(name=None):
