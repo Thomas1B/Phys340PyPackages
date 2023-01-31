@@ -105,7 +105,14 @@ def get_mass_fraction(name=None):
                                 for name in mass_density], axis=1)
         mass_fraction.columns = mass_density.columns
         return mass_fraction
-    
+
+def Clau_Clap_eqn(T, L=2.45e6):
+    '''
+    Function to calculate the saturation vapour pressure over a flat surface
+    using the Clausius-Clapeyron equation
+    '''
+    k = (0.018*L)/8.315
+    return 6.11*np.exp(k*(273**-1 - T**-1))
 # *************************************************************************************
 
 

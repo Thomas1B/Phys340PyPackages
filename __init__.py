@@ -8,7 +8,8 @@ from .main import (
     get_num_densities,
     get_mass_density,
     get_specific_humidity,
-    get_mass_fraction
+    get_mass_fraction,
+    Clau_Clap_eqn
 )
 from .main import (
     plot_vs_pressure
