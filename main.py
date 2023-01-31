@@ -109,11 +109,11 @@ def get_mass_fraction(name=None):
 def Clau_Clap_eqn(T, L=2.45e6):
     '''
     Function to calculate the saturation vapour pressure over a flat surface
-    using the Clausius-Clapeyron equation
+    using the Clausius-Clapeyron equation.
 
     Parameters:
-        T (float): temperature in kelvin
-        L (optional): Specific enthalpy, default -> vapourization
+        T (float): temperature in kelvin.
+        L (optional): Specific enthalpy, default -> vapourization.
 
     Returns:
         pressure in hPa.
@@ -123,15 +123,15 @@ def Clau_Clap_eqn(T, L=2.45e6):
 
 def dewpoint_temp(e, e0, L=2.45e6):
     '''
-    Function to calculate the dewpoint temperature
+    Function to calculate the dewpoint temperature.
 
     Parameters:
-        e - final vapour pressure
-        e0 - initial vapour pressure
-        L (optional): Specific enthalpy, default -> vapourization
+        e - final vapour pressure.
+        e0 - initial vapour pressure.
+        L (optional): Specific enthalpy, default -> vapourization.
     
     Returns:
-        temperature in kelvin
+        temperature in kelvin.
     '''
     k = 8.315/(0.018*L)
     return 1/(273**-1 - k*np.log(e/e0))
