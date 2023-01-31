@@ -113,6 +113,13 @@ def Clau_Clap_eqn(T, L=2.45e6):
     '''
     k = (0.018*L)/8.315
     return 6.11*np.exp(k*(273**-1 - T**-1))
+
+def dewpoint_temp(e, e0, L=2.45e6):
+    '''
+    Function to calculate the dewpoint temperature
+    '''
+    k = 8.315/(0.018*L)
+    return 1/(273**-1 - k*np.log(e/e0))
 # *************************************************************************************
 
 

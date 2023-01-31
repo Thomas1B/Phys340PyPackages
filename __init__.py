@@ -9,7 +9,8 @@ from .main import (
     get_mass_density,
     get_specific_humidity,
     get_mass_fraction,
-    Clau_Clap_eqn
+    Clau_Clap_eqn,
+    dewpoint_temp
 )
 from .main import (
     plot_vs_pressure
