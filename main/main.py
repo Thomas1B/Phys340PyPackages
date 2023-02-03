@@ -141,30 +141,3 @@ def kelvin_eqn(r, T):
     '''
     sigma = 0.0720  # water surface tension.
     return Clau_Clap_eqn(T)*np.exp((2*18e-3*sigma)/(r*1e3*constants.gas_constant*T))
-
-
-# *************************************************************************************
-
-
-def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
-    '''
-    Function to make plots againist pressure
-
-    '''
-    p = read_exoplanetA().pressure/100
-
-    if kind:
-        if kind == "semilogx":
-            plt.semilogx(x, p, label=label)
-        elif kind == "semilogy":
-            plt.semilogy(x, p, label=label)
-        elif kind == "loglog":
-            plt.loglog(x, p, label=label)
-    else:
-        plt.plot(x, p, label=label)
-
-    plt.gca().invert_yaxis()
-    plt.title(title, fontsize=14)
-    plt.ylabel("Pressure $[hPa]$")
-    plt.xlabel(xlabel)
-    plt.grid()
