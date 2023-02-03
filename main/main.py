@@ -73,20 +73,24 @@ def effective_mm_ep(e, p):
 def specific_humidity():
     '''
     Function to calculate the specific humidity.
+
     Returns pd Series.
     '''
+    
     water_vapour_density = mass_density('H2O')
     return pd.Series(water_vapour_density/data.air_density, name="specific_humidity")
 
 
 def mass_fraction(name=None):
     '''
+    Function to calculate the mass fraction of a compound.
+
     Parameter:
         name (str): Optional, name of compound.
 
     Returns:
         if name parameter is given -> Series.
-        otherwise -> DataFrame.
+        otherwise -> DataFrame of all compounds.
     '''
 
     if name:
@@ -99,7 +103,7 @@ def mass_fraction(name=None):
         return mass_fraction
 
 
-def Clau_Clap_eqn(T, L=2.45e6):
+def clau_clap_eqn(T, L=2.45e6):
     '''
     Function to calculate the saturation vapour pressure over a flat surface
     using the Clausius-Clapeyron equation.
@@ -111,7 +115,7 @@ def Clau_Clap_eqn(T, L=2.45e6):
     Returns:
         pressure in hPa.
     '''
-    k = (0.018*L)/8.315
+    k = (molar_mass['wet_air']*L)/constants.gas_constant
     return 6.11*np.exp(k*(273**-1 - T**-1))
 
 
@@ -127,7 +131,7 @@ def dewpoint_temp(e, e0, L=2.45e6):
     Returns:
         temperature in kelvin.
     '''
-    k = 8.315/(0.018*L)
+    k = constants.gas_constant/(molar_mass['wet_air']*L)
     return 1/(273**-1 - k*np.log(e/e0))
 
 
@@ -136,8 +140,8 @@ def kelvin_eqn(r, T):
     Function to calculate the saturation vapour pressure for a droplet of radius using the kelvin equation.
 
     Parameters:
-        r (float) radius of droplet.
+        r (float) radius of droplet, pass in meters!.
         T (float) temperature
     '''
-    sigma = 0.0720  # water surface tension.
-    return Clau_Clap_eqn(T)*np.exp((2*18e-3*sigma)/(r*1e3*constants.gas_constant*T))
+    sigma = 0.0720  # [N/m] coefficient of water surface tension.
+    return clau_clap_eqn(T)*np.exp((2*molar_mass['wet_air']*sigma)/(r*1e3*constants.gas_constant*T))

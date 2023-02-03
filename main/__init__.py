@@ -1,6 +1,10 @@
 from .main import (
-    get_mass_density,
-    get_mass_fraction,
-    get_num_densities,
-    get_specific_humidity
+    mass_density,
+    effective_mm_ep,
+    effective_mm_q,
+    specific_humidity,
+    mass_fraction,
+    clau_clap_eqn,
+    dewpoint_temp,
+    kelvin_eqn
 )
