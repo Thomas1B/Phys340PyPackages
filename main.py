@@ -148,6 +148,16 @@ def eff_molar_mass_ep(e, p):
     md, mv = 29, 18
     return md*(1 + (e/p)*((mv/md)-1))
 
+def kelvin_eqn(r, T):
+    '''
+    Function to calculate the saturation vapour pressure for a droplet of radius using the kelvin equation.
+
+    Parameters:
+        r (float) radius of droplet.
+        T (float) temperature
+    '''
+    sigma = 0.0720 # water surface tension.
+    return Clau_Clap_eqn(T)*np.exp((2*18e-3*sigma)/(r*1e3*constants.gas_constant*T))
 # *************************************************************************************
 
 

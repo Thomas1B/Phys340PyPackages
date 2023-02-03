@@ -11,7 +11,8 @@ from .main import (
     get_mass_fraction,
     Clau_Clap_eqn,
     dewpoint_temp,
-    eff_molar_mass_ep
+    eff_molar_mass_ep,
+    kelvin_eqn
 )
 from .main import (
     plot_vs_pressure
