@@ -1,9 +1,9 @@
 from .main import (
-    mass_density,
+    mass_den,
     effective_mm_ep,
     effective_mm_q,
-    specific_humidity,
-    mass_fraction,
+    spec_humidity,
+    mass_frac,
     clau_clap_eqn,
     dewpoint_temp,
     kelvin_eqn

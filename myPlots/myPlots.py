@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from myData import read_exoplanetA
+from ..myData import read_exoplanetA
 
 
 

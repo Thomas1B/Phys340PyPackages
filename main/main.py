@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy import constants
 
-from myData import (
+from ..myData import (
     read_exoplanetA,
     molar_mass,
     molecules_names,
@@ -19,7 +19,7 @@ data = read_exoplanetA()  # DO NOT REMOVE
 
 # *************************************************************************************
 
-def mass_density(name=None):
+def mass_den(name=None):
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
 
@@ -70,18 +70,18 @@ def effective_mm_ep(e, p):
     return md*(1 + (e/p)*((mv/md)-1))
 
 
-def specific_humidity():
+def spec_humidity():
     '''
     Function to calculate the specific humidity.
 
     Returns pd Series.
     '''
     
-    water_vapour_density = mass_density('H2O')
+    water_vapour_density = mass_den('H2O')
     return pd.Series(water_vapour_density/data.air_density, name="specific_humidity")
 
 
-def mass_fraction(name=None):
+def mass_frac(name=None):
     '''
     Function to calculate the mass fraction of a compound.
 
@@ -94,9 +94,9 @@ def mass_fraction(name=None):
     '''
 
     if name:
-        return pd.Series(mass_density(name)/data.air_density, name=name)
+        return pd.Series(mass_den(name)/data.air_density, name=name)
     else:
-        mass_density = mass_density()
+        mass_density = mass_den()
         mass_fraction = pd.concat([mass_density[name]/data.air_density
                                    for name in mass_density], axis=1)
         mass_fraction.columns = mass_density.columns
