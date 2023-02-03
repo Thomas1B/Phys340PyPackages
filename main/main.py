@@ -6,10 +6,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy import constants
 
-# *************************************************************************************
-# System Parameters
+from .myData.myData import read_exoplanetA
 
-main_path = '../../Data/'
+data = read_exoplanetA() # DO NOT REMOVE
 
 # *************************************************************************************
 # data parameters
@@ -27,20 +26,6 @@ molar_mass = {
     'Ar': 39.948e-3,
     'H2O': 18.015e-3
 }
-
-# *************************************************************************************
-# Functions to read in data
-
-def read_exoplanetA():
-    '''
-    Function to read in data from exoplanetA.
-    '''
-    data_path = f"{main_path}/exoplanet_2023A_data.txt"
-    data = pd.read_csv(data_path, sep='\s+', skiprows=13, names=column_names)
-    # getting full number, see data file for explaination.
-    data[molecules_names] *= 1e22
-    return data
-data = read_exoplanetA()
 
 # *************************************************************************************
 # Functions for calculating
