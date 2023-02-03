@@ -9,11 +9,14 @@ from .main import (
     get_mass_density,
     get_specific_humidity,
     get_mass_fraction,
+    plot_vs_pressure,
     Clau_Clap_eqn,
     dewpoint_temp,
-    eff_molar_mass_ep,
     kelvin_eqn
 )
-from .main import (
-    plot_vs_pressure
+
+from .effective_molar_mass import (
+    eff_molar_mass_ep
 )
+
+

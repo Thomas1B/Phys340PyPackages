@@ -106,6 +106,7 @@ def get_mass_fraction(name=None):
         mass_fraction.columns = mass_density.columns
         return mass_fraction
 
+
 def Clau_Clap_eqn(T, L=2.45e6):
     '''
     Function to calculate the saturation vapour pressure over a flat surface
@@ -120,6 +121,7 @@ def Clau_Clap_eqn(T, L=2.45e6):
     '''
     k = (0.018*L)/8.315
     return 6.11*np.exp(k*(273**-1 - T**-1))
+
 
 def dewpoint_temp(e, e0, L=2.45e6):
     '''
@@ -136,17 +138,7 @@ def dewpoint_temp(e, e0, L=2.45e6):
     k = 8.315/(0.018*L)
     return 1/(273**-1 - k*np.log(e/e0))
 
-def eff_molar_mass_ep(e, p):
-    '''
-    Function to calculate the effective molar mass from the 
-    water vapour pressure and air pressure.
 
-    Parameters:
-        e (float): water vapour pressure.
-        p (float): air pressure.
-    '''
-    md, mv = 29, 18
-    return md*(1 + (e/p)*((mv/md)-1))
 
 def kelvin_eqn(r, T):
     '''
@@ -158,6 +150,8 @@ def kelvin_eqn(r, T):
     '''
     sigma = 0.0720 # water surface tension.
     return Clau_Clap_eqn(T)*np.exp((2*18e-3*sigma)/(r*1e3*constants.gas_constant*T))
+
+
 # *************************************************************************************
 
 
