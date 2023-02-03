@@ -136,6 +136,18 @@ def dewpoint_temp(e, e0, L=2.45e6):
     k = 8.315/(0.018*L)
     return 1/(273**-1 - k*np.log(e/e0))
 
+def eff_molar_mass_ep(e, p):
+    '''
+    Function to calculate the effective molar mass from the 
+    water vapour pressure and air pressure.
+
+    Parameters:
+        e (float): water vapour pressure.
+        p (float): air pressure.
+    '''
+    md, mv = 29, 18
+    return md*(1 + (e/p)*((mv/md)-1))
+
 # *************************************************************************************
 
 
