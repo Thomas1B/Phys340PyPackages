@@ -5,12 +5,25 @@ from scipy import constants
 
 main_path = '../../Data/'
 
-from ..main import (
-    molecules_names,
-    column_names,
-    molar_mass
-)
+# *********************** Parameters ***********************
 
+molecules_names = ['N2', 'CO', 'O2', 'H2', 'Ar', 'H2O']
+column_names = ['pressure', 'temperature', 'air_density',
+                'zonal_wind', 'merid_wind'] + molecules_names
+molar_mass = {
+    # molar mass, in  Kg/mol
+    'dry_air' : 28.9647e-3,
+    'wet_air' : 18e-3,
+    "N2": 28.013e-3,
+    'CO': 28.010e-3,
+    'O2': 32e-3,
+    'H2': 2.016e-3,
+    'Ar': 39.948e-3,
+    'H2O': 18.015e-3
+}
+
+
+# *********************** Functions ***********************
 
 def read_exoplanetA():
     '''
@@ -22,4 +35,13 @@ def read_exoplanetA():
     data[molecules_names] *= 1e22
     return data
 
-data = read_exoplanetA()
+
+def read_num_densities(data=None, molecules_names=molecules_names):
+    '''
+    Function to read the number density of compounds from some data.
+    Returns DataFrame.
+    '''
+    if not data:
+        data = read_exoplanetA()
+
+    return data[molecules_names]

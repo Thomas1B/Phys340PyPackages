@@ -1,20 +1,22 @@
 import numpy as np
 import pandas as pd
 
-from .main import molar_mass
+molar_mass = {
+    "dr": 2
+}
 
 
 def effective_mm_q(q):
     '''
     Function to calculate the effective molar mass from the specific humidity.
-    
+
     Parameter:
         q (float) - specific humidity.
 
     Returns:
         float
     '''
-    return  molar_mass['dry_air']/(1 + 0.61*q)
+    return molar_mass['dry_air']/(1 + 0.61*q)
 
 
 def effective_mm_ep(e, p):

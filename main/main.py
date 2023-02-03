@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy import constants
 
-from .myData.myData import read_exoplanetA
+from myData import read_exoplanetA
 
 data = read_exoplanetA() # DO NOT REMOVE
 
@@ -143,13 +143,16 @@ def kelvin_eqn(r, T):
 def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
     '''
     Function to make plots againist pressure
+    
     '''
+    p = read_exoplanetA().pressure/100
+
     if kind:
-        if kind == "semilogx": plt.semilogx(x, read_exoplanetA().pressure/100, label=label)
-        elif kind == "semilogy": plt.semilogy(x, read_exoplanetA().pressure/100, label=label)
-        elif kind == "loglog": plt.loglog(x, read_exoplanetA().pressure/100, label=label)
+        if kind == "semilogx": plt.semilogx(x, p, label=label)
+        elif kind == "semilogy": plt.semilogy(x, p, label=label)
+        elif kind == "loglog": plt.loglog(x, p, label=label)
     else:
-        plt.plot(x, read_exoplanetA().pressure/100, label=label)
+        plt.plot(x, p, label=label)
 
     plt.gca().invert_yaxis()
     plt.title(title, fontsize=14)
