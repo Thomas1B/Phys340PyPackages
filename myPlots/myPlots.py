@@ -4,12 +4,6 @@ from myData import read_exoplanetA
 
 
 
-
-
-
-
-
-
 def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
     '''
     Function to make plots againist pressure
