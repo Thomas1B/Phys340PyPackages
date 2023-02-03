@@ -19,9 +19,9 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
     p = read_exoplanetA().pressure/100
 
     if kind:
-        if kind == "logx": plt.semilogx(x, p, label=label)
-        elif kind == "logy": plt.semilogy(x, p, label=label)
-        elif kind == "loglog": plt.loglog(x, p, label=label)
+        if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(x, p, label=label)
+        elif kind == "logy" or 'semilogy' or 'logY': plt.semilogy(x, p, label=label)
+        elif kind == "loglog" or 'log' or 'Log': plt.loglog(x, p, label=label)
     else:
         plt.plot(x, p, label=label)
 

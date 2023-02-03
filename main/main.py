@@ -31,13 +31,13 @@ def mass_den(name=None):
         otherwise -> DataFrame.
     '''
 
-    def mass_density(num_density, molar_mass):
+    def mass_d(num_density, molar_mass):
         return (num_density*molar_mass)/constants.Avogadro
 
     if name:
-        return pd.Series(mass_density(read_num_densities()[name], molar_mass[name]), name=name)
+        return pd.Series(mass_d(read_num_densities()[name], molar_mass[name]), name=name)
     else:
-        return pd.concat([mass_density(read_num_densities()[name], molar_mass[name])
+        return pd.concat([mass_d(read_num_densities()[name], molar_mass[name])
                           for name in molecules_names], axis=1)
 
 
