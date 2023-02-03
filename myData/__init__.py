@@ -6,6 +6,5 @@ from .myData import (
 
 from .myData import (
     read_exoplanetA,
-    read_num_densities,
-    
+    read_num_densities
 )

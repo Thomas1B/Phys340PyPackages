@@ -6,42 +6,20 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy import constants
 
-from myData import read_exoplanetA
+from myData import (
+    read_exoplanetA,
+    molar_mass,
+    molecules_names,
+    column_names,
+    read_num_densities
+)
 
-data = read_exoplanetA() # DO NOT REMOVE
+data = read_exoplanetA()  # DO NOT REMOVE
+
 
 # *************************************************************************************
-# data parameters
 
-molecules_names = ['N2', 'CO', 'O2', 'H2', 'Ar', 'H2O']
-column_names = ['pressure', 'temperature', 'air_density',
-                'zonal_wind', 'merid_wind'] + molecules_names
-molar_mass = {
-    # molar mass, in  Kg/mol
-    'dry_air' : 28.9647e-3,
-    "N2": 28.013e-3,
-    'CO': 28.010e-3,
-    'O2': 32e-3,
-    'H2': 2.016e-3,
-    'Ar': 39.948e-3,
-    'H2O': 18.015e-3
-}
-
-# *************************************************************************************
-# Functions for calculating
-
-def get_num_densities(data=None, molecules_names=molecules_names):
-    '''
-    Function to get the number density of compounds in some data.
-    Returns DataFrame.
-    '''
-    if not data:
-        data = read_exoplanetA()
-
-    return data[molecules_names]
-
-
-def get_mass_density(name=None):
+def mass_density(name=None):
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
 
@@ -53,26 +31,55 @@ def get_mass_density(name=None):
         otherwise -> DataFrame.
     '''
 
-    def mass_density(num_density, molar_mass): 
+    def mass_density(num_density, molar_mass):
         return (num_density*molar_mass)/constants.Avogadro
 
     if name:
-        return pd.Series(mass_density(get_num_densities()[name], molar_mass[name]), name=name)
+        return pd.Series(mass_density(read_num_densities()[name], molar_mass[name]), name=name)
     else:
-        return pd.concat([mass_density(get_num_densities()[name], molar_mass[name])
-                      for name in molecules_names], axis=1)
+        return pd.concat([mass_density(read_num_densities()[name], molar_mass[name])
+                          for name in molecules_names], axis=1)
 
 
-def get_specific_humidity():
+def effective_mm_q(q):
+    '''
+    Function to calculate the effective molar mass from the specific humidity.
+
+    Parameter:
+        q (float) - specific humidity.
+
+    Returns:
+        float
+    '''
+    return molar_mass['dry_air']/(1 + 0.61*q)
+
+
+def effective_mm_ep(e, p):
+    '''
+    Function to calculate the effective molar mass from the 
+    water vapour pressure and air pressure.
+
+    Parameters:
+        e (float): water vapour pressure.
+        p (float): air pressure.
+
+    Returns:
+        float
+    '''
+    md, mv = molar_mass['dry_air'], molar_mass['H2O']
+    return md*(1 + (e/p)*((mv/md)-1))
+
+
+def specific_humidity():
     '''
     Function to calculate the specific humidity.
     Returns pd Series.
     '''
-    water_vapour_density = get_mass_density('H2O')
+    water_vapour_density = mass_density('H2O')
     return pd.Series(water_vapour_density/data.air_density, name="specific_humidity")
 
 
-def get_mass_fraction(name=None):
+def mass_fraction(name=None):
     '''
     Parameter:
         name (str): Optional, name of compound.
@@ -83,11 +90,11 @@ def get_mass_fraction(name=None):
     '''
 
     if name:
-        return pd.Series(get_mass_density(name)/data.air_density, name=name)
+        return pd.Series(mass_density(name)/data.air_density, name=name)
     else:
-        mass_density = get_mass_density()
+        mass_density = mass_density()
         mass_fraction = pd.concat([mass_density[name]/data.air_density
-                                for name in mass_density], axis=1)
+                                   for name in mass_density], axis=1)
         mass_fraction.columns = mass_density.columns
         return mass_fraction
 
@@ -116,13 +123,12 @@ def dewpoint_temp(e, e0, L=2.45e6):
         e - final vapour pressure.
         e0 - initial vapour pressure.
         L (optional): Specific enthalpy, default -> vapourization.
-    
+
     Returns:
         temperature in kelvin.
     '''
     k = 8.315/(0.018*L)
     return 1/(273**-1 - k*np.log(e/e0))
-
 
 
 def kelvin_eqn(r, T):
@@ -133,7 +139,7 @@ def kelvin_eqn(r, T):
         r (float) radius of droplet.
         T (float) temperature
     '''
-    sigma = 0.0720 # water surface tension.
+    sigma = 0.0720  # water surface tension.
     return Clau_Clap_eqn(T)*np.exp((2*18e-3*sigma)/(r*1e3*constants.gas_constant*T))
 
 
@@ -143,14 +149,17 @@ def kelvin_eqn(r, T):
 def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
     '''
     Function to make plots againist pressure
-    
+
     '''
     p = read_exoplanetA().pressure/100
 
     if kind:
-        if kind == "semilogx": plt.semilogx(x, p, label=label)
-        elif kind == "semilogy": plt.semilogy(x, p, label=label)
-        elif kind == "loglog": plt.loglog(x, p, label=label)
+        if kind == "semilogx":
+            plt.semilogx(x, p, label=label)
+        elif kind == "semilogy":
+            plt.semilogy(x, p, label=label)
+        elif kind == "loglog":
+            plt.loglog(x, p, label=label)
     else:
         plt.plot(x, p, label=label)
 
