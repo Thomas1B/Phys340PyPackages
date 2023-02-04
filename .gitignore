@@ -7,3 +7,9 @@ __pycache__/plotting.cpython-311.pyc
 myPlots/__pycache__/__init__.cpython-311.pyc
 myPlots/__pycache__/myPlots.cpython-311.pyc
 .gitignore
+main/__pycache__/__init__.cpython-39.pyc
+main/__pycache__/main.cpython-39.pyc
+myData/__pycache__/__init__.cpython-39.pyc
+myData/__pycache__/myData.cpython-39.pyc
+myPlots/__pycache__/__init__.cpython-39.pyc
+myPlots/__pycache__/myPlots.cpython-39.pyc
