@@ -14,3 +14,6 @@ myData/__pycache__/myData.cpython-39.pyc
 myPlots/__pycache__/__init__.cpython-39.pyc
 myPlots/__pycache__/myPlots.cpython-39.pyc
 main/__pycache__/main.cpython-311.pyc
+myPrints/__pycache__/__init__.cpython-311.pyc
+.gitignore
+myPrints/__pycache__/myPrints.cpython-311.pyc
