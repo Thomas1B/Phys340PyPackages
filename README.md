@@ -24,13 +24,9 @@ from Phys340PyPackages import (
 
 <br>
 
-The `Calculator.ipynb` file needs to be moved outside the `Phys340PyPackages` folder. Otherwise the import paths of the modules will not work.<br><br>
-Same with the data file `exoplanet_2023A_data.txt`, which can be found in the `myData` folder. <br>
+The `Calculator.ipynb` file needs to be moved outside the `Phys340PyPackages` folder. Otherwise the import paths of the modules will not work. Same with the data file `exoplanet_2023A_data.txt`, which can be found in the `myData` folder. <br>
 
-**Filetree**:<br>
-Folder ->
-- Phys340PyPackages
-- Calculatoy.ipynb
-- exoplanet_2023A_data.txt
+For Example:<br>
+![Filetree](Images/Filetree.png)
 
 
