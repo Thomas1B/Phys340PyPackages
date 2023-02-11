@@ -6,5 +6,6 @@ from .main import (
     mass_frac,
     clau_clap_eqn,
     dewpoint_temp,
-    kelvin_eqn
+    kelvin_eqn,
+    potential_temperature
 )
