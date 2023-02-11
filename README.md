@@ -5,19 +5,25 @@
 How to import functions and variables:
 ```py
 # Custom Packages
-from Phys340PyPackages import (
+from Phys340PyPackages.myData import (
     molecules_names,
     molar_mass,
-    column_names
-)
-from Phys340PyPackages import ( 
+    column_names,
     read_exoplanetA,
-    get_num_densities,
-    get_mass_density,
-    get_mass_fraction,
-    get_specific_humidity
+    read_num_densities
 )
-from Phys340PyPackages import (
+from Phys340PyPackages.main import (
+    mass_den,
+    effective_mm_q,
+    effective_mm_ep,
+    spec_humidity,
+    mass_frac,
+    clau_clap_eqn,
+    dewpoint_temp,
+    kelvin_eqn
+)
+
+from Phys340PyPackages.myPlots import (
     plot_vs_pressure
 )
 ```
