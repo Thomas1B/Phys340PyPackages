@@ -146,26 +146,32 @@ def kelvin_eqn(r, T):
     sigma = 0.0720  # [N/m] coefficient of water surface tension.
     return clau_clap_eqn(T)*np.exp((2*molar_mass['wet_air']*sigma)/(r*1e3*constants.gas_constant*T))
 
-def potential_temperature(T, p, c_p, p_r=None):
+def potential_temperature(T, p, c_p=None, p_r=None):
     '''
     Function to calculate the potential temperature
 
     Parameters
         T (float, array_like): temperature.
         p (float, array_like): pressure.
+        c_p (float, array_like): specific heat capacity at constant pressure.
         p_r (float): reference pressure, optional.
 
     Returns
         temperature as float/array_like, units are K/Pa.
     '''
-    # effective molar mass
-    effmm = (data.air_density*constants.gas_constant*data.temperature)/data.pressure
+
 
     if not p_r:
         '''
         If reference pressure isnt given, then it get the surface pressure.
         (i.e max pressure)
         '''
-        p_r = max(data.pressure)
+        p_r = max(data.pressure)     
 
-    return T*(p_r/p)**(constants.gas_constant/(effmm*c_p))
+    # if c_p isn't passed
+    k = 2/7 
+    if type(c_p) == (pd.Series or np.array or list):
+        effmm = (data.air_density*constants.gas_constant*data.temperature)/data.pressure # effective molar mass
+        k = (constants.gas_constant/(effmm*c_p))   
+
+    return T*(p_r/p)**k
