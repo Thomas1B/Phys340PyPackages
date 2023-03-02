@@ -182,7 +182,21 @@ def potential_temperature(T, p, c_p=None, p_r=None):
 
 # *************************************************************************************
 
-def get_mm_Unk(name="Unk"):
+def get_Unk_mass_den(name="Unk"):
+    '''
+    Function to return the "unknown" (Helium) mass_density, (from Assignment 1).
+
+    Works by subtracting each mass density from the total density for each iteration.
+
+    Parameters:
+     name (str): name given to pandas series, default "Unk"
+
+    '''
+    mass_density = mass_den()
+    return pd.Series(data.air_density - mass_density.sum(axis=1), name='Unk')
+
+
+def get_Unk_mm(name="Unk"):
     '''
     Function to return the "unknown" (Helium) molar mass, (from Assignment 1).
 
@@ -192,9 +206,9 @@ def get_mm_Unk(name="Unk"):
      name (str): name given to pandas series, default "Unk"
 
     '''
-    mass_fractions = mass_frac()
     mass_density = mass_den()
-    x_mass_density = pd.Series(data.air_density - mass_density.sum(axis=1), name='Unk')
+    mass_fractions = mass_frac()
+    x_mass_density = get_Unk_mass_den()
     mass_density = pd.concat([mass_density, x_mass_density], axis=1)
 
     effmm = (data.air_density*constants.gas_constant*data.temperature)/data.pressure
@@ -202,3 +216,16 @@ def get_mm_Unk(name="Unk"):
     x_molar_mass =  ((1/effmm) - ratios.sum(axis=1)).pow(-1) * (mass_density.Unk/data.air_density)
 
     return pd.Series(x_molar_mass, name=name)
+
+
+def get_Unk_mf(name='Unk'):
+    '''
+    Function to return the "unknown" (Helium) mass fraction, (from Assignment 1).
+
+    mass_density_Unk / total density
+    
+    Parameters:
+     name (str): name given to pandas series, default "Unk"
+
+    '''
+    return pd.Series((get_Unk_mass_den()/data.air_density), name="Unk")

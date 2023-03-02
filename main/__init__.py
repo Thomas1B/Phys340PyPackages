@@ -8,5 +8,7 @@ from .main import (
     dewpoint_temp,
     kelvin_eqn,
     potential_temperature,
-    get_mm_Unk
+    get_Unk_mass_den,
+    get_Unk_mm,
+    get_Unk_mf
 )
