@@ -7,5 +7,6 @@ from .main import (
     clau_clap_eqn,
     dewpoint_temp,
     kelvin_eqn,
-    potential_temperature
+    potential_temperature,
+    get_mm_Unk
 )

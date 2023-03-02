@@ -16,7 +16,6 @@ from ..myData import (
 
 data = read_exoplanetA()  # DO NOT REMOVE
 
-
 # *************************************************************************************
 
 def mass_den(name=None):
@@ -178,3 +177,28 @@ def potential_temperature(T, p, c_p=None, p_r=None):
 
     return T*(p_r/p)**k
 
+
+
+
+# *************************************************************************************
+
+def get_mm_Unk(name="Unk"):
+    '''
+    Function to return the "unknown" (Helium) molar mass, (from Assignment 1).
+
+    Works by reversing the effective molar mass equation.
+
+    Parameters:
+     name (str): name given to pandas series, default "Unk"
+
+    '''
+    mass_fractions = mass_frac()
+    mass_density = mass_den()
+    x_mass_density = pd.Series(data.air_density - mass_density.sum(axis=1), name='Unk')
+    mass_density = pd.concat([mass_density, x_mass_density], axis=1)
+
+    effmm = (data.air_density*constants.gas_constant*data.temperature)/data.pressure
+    ratios = pd.concat([mass_fractions[col]/molar_mass[col] for col in molecules_names], axis=1)
+    x_molar_mass =  ((1/effmm) - ratios.sum(axis=1)).pow(-1) * (mass_density.Unk/data.air_density)
+
+    return pd.Series(x_molar_mass, name=name)
