@@ -22,6 +22,7 @@ data = read_exoplanetA()  # DO NOT REMOVE
 def mass_den(name=None):
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
+    density = number_density * molar_mass
 
     Parameter:
         name (str): Optional, name of compound.
@@ -44,6 +45,7 @@ def mass_den(name=None):
 def effective_mm_q(q):
     '''
     Function to calculate the effective molar mass from the specific humidity.
+    m = m_d / (1 + 0.61q)
 
     Parameter:
         q (float) - specific humidity.
@@ -56,8 +58,8 @@ def effective_mm_q(q):
 
 def effective_mm_ep(e, p):
     '''
-    Function to calculate the effective molar mass from the 
-    water vapour pressure and air pressure.
+    Function to calculate the effective molar mass from the water vapour pressure and air pressure.
+    m = md / {1 + (e/p)(mv/md)-1)}
 
     Parameters:
         e (float): water vapour pressure.
@@ -73,6 +75,7 @@ def effective_mm_ep(e, p):
 def spec_humidity():
     '''
     Function to calculate the specific humidity.
+    q = water_vapour_density / total_density 
 
     Returns pd Series.
     '''
@@ -84,6 +87,7 @@ def spec_humidity():
 def mass_frac(name=None):
     '''
     Function to calculate the mass fraction of a compound.
+    x = mass_density / total density
 
     Parameter:
         name (str): Optional, name of compound.
@@ -150,6 +154,7 @@ def kelvin_eqn(r, T):
 def potential_temperature(T, p, c_p=None, p_r=None):
     '''
     Function to calculate the potential temperature
+    T = T_0 * (p_r/p)^k
 
     Parameters
         T (float, array_like): temperature.
@@ -161,18 +166,15 @@ def potential_temperature(T, p, c_p=None, p_r=None):
         temperature as float/array_like, units are K/Pa.
     '''
 
-    if not p_r:
-        '''
-        If reference pressure isnt given, then it get the surface pressure.
-        (i.e max pressure)
-        '''
-        p_r = max(data.pressure)
+    if not p_r:  # if a reference pressure isn't given
+        p_r = data.pressure[-1]
 
-    # if c_p isn't passed
     k = 2/7
+    # if c_p isn't passed
     if type(c_p) == (pd.Series or np.array or list):
         effmm = (data.air_density*constants.gas_constant *
                  data.temperature)/data.pressure  # effective molar mass
         k = (constants.gas_constant/(effmm*c_p))
 
     return T*(p_r/p)**k
+
