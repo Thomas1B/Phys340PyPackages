@@ -167,7 +167,7 @@ def potential_temperature(T, p, c_p=None, p_r=None):
     '''
 
     if not p_r:  # if a reference pressure isn't given
-        p_r = data.pressure[-1]
+        p_r = data.pressure.max() # surface pressure of exoplanet
 
     k = 2/7
     # if c_p isn't passed
