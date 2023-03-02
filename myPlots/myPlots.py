@@ -4,7 +4,7 @@ from ..myData import read_exoplanetA
 
 
 
-def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
+def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, y=False):
     '''
     Function to make plots againist pressure
 
@@ -14,9 +14,12 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None):
         xlabel (str): x-axis label.
         label (list_like): labels for legend.
         kind (logx, logy, loglog): which kind of plot to use, default linear.
+        y: (bool): True auto slices y-data to fit x-data. 
     
     '''
     p = read_exoplanetA().pressure/100
+    if y: 
+        p = p.iloc[:len(x)]
 
     if kind:
         if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(x, p, label=label)
