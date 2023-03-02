@@ -18,6 +18,7 @@ data = read_exoplanetA()  # DO NOT REMOVE
 
 # *************************************************************************************
 
+
 def mass_den(name=None):
     '''
     Function to calculate the mass density from the number density and molar mass of a given element/compound.
@@ -166,7 +167,7 @@ def potential_temperature(T, p, c_p=None, p_r=None):
     '''
 
     if not p_r:  # if a reference pressure isn't given
-        p_r = data.pressure.max() # surface pressure of exoplanet
+        p_r = data.pressure.max()  # surface pressure of exoplanet
 
     k = 2/7
     # if c_p isn't passed
@@ -176,8 +177,6 @@ def potential_temperature(T, p, c_p=None, p_r=None):
         k = (constants.gas_constant/(effmm*c_p))
 
     return T*(p_r/p)**k
-
-
 
 
 # *************************************************************************************
@@ -211,9 +210,12 @@ def get_Unk_mm(name="Unk"):
     x_mass_density = get_Unk_mass_den()
     mass_density = pd.concat([mass_density, x_mass_density], axis=1)
 
-    effmm = (data.air_density*constants.gas_constant*data.temperature)/data.pressure
-    ratios = pd.concat([mass_fractions[col]/molar_mass[col] for col in molecules_names], axis=1)
-    x_molar_mass =  ((1/effmm) - ratios.sum(axis=1)).pow(-1) * (mass_density.Unk/data.air_density)
+    effmm = (data.air_density*constants.gas_constant *
+             data.temperature)/data.pressure
+    ratios = pd.concat([mass_fractions[col]/molar_mass[col]
+                       for col in molecules_names], axis=1)
+    x_molar_mass = ((1/effmm) - ratios.sum(axis=1)).pow(-1) * \
+        (mass_density.Unk/data.air_density)
 
     return pd.Series(x_molar_mass, name=name)
 
@@ -223,7 +225,7 @@ def get_Unk_mf(name='Unk'):
     Function to return the "unknown" (Helium) mass fraction, (from Assignment 1).
 
     mass_density_Unk / total density
-    
+
     Parameters:
      name (str): name given to pandas series, default "Unk"
 
