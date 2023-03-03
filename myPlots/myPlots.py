@@ -30,6 +30,6 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, y=False)
 
     plt.gca().invert_yaxis()
     plt.title(title, fontsize=14)
-    plt.ylabel("Pressure $[hPa]$")
-    plt.xlabel(xlabel)
+    plt.ylabel("Pressure $[hPa]$", fontsize=12)
+    plt.xlabel(xlabel, fontsize=12)
     plt.grid()
