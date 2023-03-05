@@ -5,6 +5,7 @@ from ..myData import read_exoplanetA
 
 
 def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, y=False):
+    
     '''
     Function to make plots againist pressure
 
@@ -33,3 +34,17 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, y=False)
     plt.ylabel("Pressure $[hPa]$", fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
     plt.grid()
+
+
+def save_plot(name, path= "WriteUp/Figures/", dpi=500, filetype='.jpeg'):
+    '''
+    Function to save a plot,
+
+    Parameters:
+        name (str): name to plot be saved as.
+        path (str): filepath to desired location. (default: WriteUp/Figures/)
+        dpi (int): image quaility (optional).
+        filetype (str): filetype to be saved as.
+    '''
+    full_path = path + name + filetype
+    plt.savefig(full_path, dpi=dpi)
