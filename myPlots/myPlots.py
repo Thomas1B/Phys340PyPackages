@@ -28,13 +28,11 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, slice=Fa
     def plot(xx):
 
         if kind:
-            if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(xx, p, label=label)
-            elif kind == "logy" or 'semilogy' or 'logY': plt.semilogy(xx, p, label=label)
-            elif kind == "loglog" or 'log' or 'Log': plt.loglog(xx, p, label=label)
+            if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(xx, p, label=label, fontsize=12)
+            elif kind == "logy" or 'semilogy' or 'logY': plt.semilogy(xx, p, label=label, fontsize=12)
+            elif kind == "loglog" or 'log' or 'Log': plt.loglog(xx, p, label=label, fontsize=12)
         else:
             plt.plot(xx, p, label=label)
-
-    print(type(x[0]))
 
     if type(x) == (list or np.array or pd.Series):
         for arr in x:
