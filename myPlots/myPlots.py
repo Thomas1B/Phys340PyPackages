@@ -23,28 +23,31 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, slice=Fa
 
     p = read_exoplanetA().pressure/100
     if slice: 
-        p = p.iloc[:len(xx)]    
+        p = p.iloc[:len(x)]    
 
-    def plot(xx):
+    def plot(xx, l):
 
         if kind:
-            if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(xx, p, label=label, fontsize=12)
-            elif kind == "logy" or 'semilogy' or 'logY': plt.semilogy(xx, p, label=label, fontsize=12)
-            elif kind == "loglog" or 'log' or 'Log': plt.loglog(xx, p, label=label, fontsize=12)
+            if kind == "logx" or 'semilogx' or 'logX': plt.semilogx(xx, p, label=l)
+            elif kind == "logy" or 'semilogy' or 'logY': plt.semilogy(xx, p, label=l)
+            elif kind == "loglog" or 'log' or 'Log': plt.loglog(xx, p, label=l)
         else:
-            plt.plot(xx, p, label=label)
+            plt.plot(xx, p, label=l)
 
-    if type(x) == (list or np.array or pd.Series):
-        for arr in x:
-            plot(arr)
+
+    if type(x) == (list or np.array or pd.Series or tuple):
+        for i, arr in enumerate(x):
+            plot(arr, label[i])
     else:
-        plot(x)
+        plot(x, label)
 
     plt.gca().invert_yaxis()
     plt.title(title, fontsize=14)
     plt.ylabel("Pressure $[hPa]$", fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
     plt.grid()
+    plt.legend(fontsize=12)
+
 
 
 
