@@ -45,7 +45,7 @@ def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, slice=Fa
     plt.ylabel("Pressure $[hPa]$", fontsize=12)
     plt.xlabel(xlabel, fontsize=12)
     plt.grid()
-    plt.legend(fontsize=12)
+    if label: plt.legend(fontsize=12)
 
 
 def save_plot(name, path="WriteUp/Figures/", dpi=500, filetype='.jpeg'):
