@@ -111,6 +111,7 @@ def clau_clap_eqn(T, L=2.45e6):
     '''
     Function to calculate the saturation vapour pressure over a flat surface
     using the Clausius-Clapeyron equation.
+    >>> Units: hPa
 
     Parameters:
         T (float): temperature in kelvin.
