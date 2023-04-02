@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, slice=False):
+def plot_vs_pressure(x, title=None, xlabel=None, label=None, kind=None, slice=True):
     '''
     Function to make plots againist pressure
 
